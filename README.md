@@ -1,4 +1,3 @@
-this is my personal web pages repo, there will be stuff about that i try 
-to make a web page for the first time
+Hi, my name is Mustafa and I study Astronomy at Istanbul University. In my free time I learned coding and fundementals of programming by myself. This web site is gonna be my portfolio about my projets
 
-
+#Data Science
