@@ -1,0 +1,136 @@
+/* Reset default margin and padding for better styling */
+body,
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set a background color and font for the entire page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    position: relative;
+    /* Add this to make footer positioning relative to body */
+    min-height: 100vh;
+    /* Ensure the page takes at least the full viewport height */
+}
+
+/* Header styling */
+header {
+    background-color: #183a5f;
+    color: white;
+    text-align: center;
+    padding: 30px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+/* Navigation styling */
+nav {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Main content container */
+.container {
+    display: flex;
+    max-width: 1200px;
+    /* Increase the max width for a wider content area */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-top: -40px;
+}
+
+/* Sidebar styling */
+.sidebar {
+    width: 200px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+/* Main content styling */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* About Me and Projects sections */
+section {
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Projects list */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Contact section */
+h2.contact {
+    font-size: 24px;
+    color: #183a5f;
+}
+
+/* Resume link */
+h3.resume {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+a.resume-link {
+    text-decoration: none;
+    background-color: #183a5f;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+a.resume-link:hover {
+    background-color: #0056b3;
+}
+
+/* Sticky footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
