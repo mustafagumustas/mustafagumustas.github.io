@@ -1,0 +1,37 @@
+name: Generate HTML Content
+
+on:
+  push:
+    branches:
+      - main  # Adjust to the branch you want to trigger the workflow on
+
+jobs:
+  generate-html:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x  # Choose the Python version you're using
+
+    - name: Install dependencies
+      run: |
+        pip install pandas-datareader pandas  # Install the required packages
+      working-directory: ./  # Adjust this to your script directory
+
+    - name: Run Python Scripts
+      run: |
+        python stock_req.py  # Run your Python script
+      working-directory: ./  # Adjust this to your script directory
+
+    - name: Commit and Push Changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .  # Stage the changes
+        git commit -m "Update HTML content"  # Commit the changes
+        git push  # Push the changes to your repository
