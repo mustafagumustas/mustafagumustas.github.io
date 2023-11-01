@@ -16,7 +16,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.x  # Choose the Python version you're using
+        python-version: 3.8.0  # Choose the Python version you're using
         node-version: 16  # Set the Node.js version to 16
 
     - name: Install dependencies
