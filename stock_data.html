@@ -1,104 +1,139 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Data - Company Name</title>
-    <style>
-        /* Add CSS styles here to modernize the appearance */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #0073e6;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 24px;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin: 20px auto;
-            background-color: white;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        th,
-        td {
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #0073e6;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        tr:hover {
-            background-color: #0073e6;
-            color: white;
-        }
-    </style>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Stock Data</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-    <header>
-        <h1>Stock Market Data for Company Name</h1>
-        <button id="reload-button">Reload Data</button>
-    </header>
     <table>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>Volume</th>
+            </tr>
+            <tr>
+                <td>2023-10-31 00:00:00</td>
+                <td>169.35</td>
+                <td>170.9</td>
+                <td>167.9</td>
+                <td>170.77</td>
+                <td>44846017.0</td>
+            </tr>
+            <tr>
+                <td>2023-10-30 00:00:00</td>
+                <td>169.02</td>
+                <td>171.17</td>
+                <td>168.87</td>
+                <td>170.29</td>
+                <td>51130955.0</td>
+            </tr>
+            <tr>
+                <td>2023-10-27 00:00:00</td>
+                <td>166.91</td>
+                <td>168.96</td>
+                <td>166.83</td>
+                <td>168.22</td>
+                <td>58499129.0</td>
+            </tr>
+            <tr>
+                <td>2023-10-26 00:00:00</td>
+                <td>170.37</td>
+                <td>171.3775</td>
+                <td>165.67</td>
+                <td>166.89</td>
+                <td>70625258.0</td>
+            </tr>
+            <tr>
+                <td>2023-10-25 00:00:00</td>
+                <td>171.88</td>
+                <td>173.06</td>
+                <td>170.65</td>
+                <td>171.1</td>
+                <td>57156962.0</td>
+            </tr>
+            <tr>
+                <td>2023-10-24 00:00:00</td>
+                <td>173.05</td>
+                <td>173.67</td>
+                <td>171.45</td>
+                <td>173.44</td>
+                <td>43816644.0</td>
+            </tr>
+            <tr>
+                <td>2023-10-23 00:00:00</td>
+                <td>170.91</td>
+                <td>174.01</td>
+                <td>169.93</td>
+                <td>173.0</td>
+                <td>55980109.0</td>
+            </tr>
+        </table>
         <tr>
-            <th>Date</th>
-            <th>Open</th>
-            <th>High</th>
-            <th>Low</th>
-            <th>Close</th>
-            <th>Volume</th>
+            <td text="2023-10-31 00:00:00"></td>
+            <td text="169.35"></td>
+            <td text="170.9"></td>
+            <td text="167.9"></td>
+            <td text="170.77"></td>
+            <td text="44846017.0"></td>
         </tr>
-        <!-- Include your Python-generated data here -->
+        <tr>
+            <td text="2023-10-30 00:00:00"></td>
+            <td text="169.02"></td>
+            <td text="171.17"></td>
+            <td text="168.87"></td>
+            <td text="170.29"></td>
+            <td text="51130955.0"></td>
+        </tr>
+        <tr>
+            <td text="2023-10-27 00:00:00"></td>
+            <td text="166.91"></td>
+            <td text="168.96"></td>
+            <td text="166.83"></td>
+            <td text="168.22"></td>
+            <td text="58499129.0"></td>
+        </tr>
+        <tr>
+            <td text="2023-10-26 00:00:00"></td>
+            <td text="170.37"></td>
+            <td text="171.3775"></td>
+            <td text="165.67"></td>
+            <td text="166.89"></td>
+            <td text="70625258.0"></td>
+        </tr>
+        <tr>
+            <td text="2023-10-25 00:00:00"></td>
+            <td text="171.88"></td>
+            <td text="173.06"></td>
+            <td text="170.65"></td>
+            <td text="171.1"></td>
+            <td text="57156962.0"></td>
+        </tr>
+        <tr>
+            <td text="2023-10-24 00:00:00"></td>
+            <td text="173.05"></td>
+            <td text="173.67"></td>
+            <td text="171.45"></td>
+            <td text="173.44"></td>
+            <td text="43816644.0"></td>
+        </tr>
+        <tr>
+            <td text="2023-10-23 00:00:00"></td>
+            <td text="170.91"></td>
+            <td text="174.01"></td>
+            <td text="169.93"></td>
+            <td text="173.0"></td>
+            <td text="55980109.0"></td>
+        </tr>
     </table>
-    <script>
-        // Define a function to reload the data and update the HTML
-        function reloadData() {
-            // Send a request to the GitHub Actions workflow
-            fetch('/.github/workflows/update-data.yml', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    event_type: 'reload-data',
-                }),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    // Handle the response or provide feedback to the user
-                    alert(data.message); // You can customize the feedback
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    alert('Data reload failed.'); // Notify the user about the error
-                });
-        }
-
-        // Attach the function to the button's click event
-        document.getElementById('reload-button').addEventListener('click', reloadData);
-    </script>
-
 </body>
 
 </html>
