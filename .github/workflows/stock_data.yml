@@ -22,7 +22,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install pandas-datareader pandas  # Install the required packages
+        pip install pandas-datareader pandas BeautifulSoup  # Install the required packages
       working-directory: ./  # Adjust this to your script directory
 
     - name: Run Python Scripts
