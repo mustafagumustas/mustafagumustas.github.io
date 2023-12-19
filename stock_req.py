@@ -18,6 +18,10 @@ table = soup.find("table")
 # Load stock data
 stock_data = web.DataReader(symbol, "stooq")
 
+# Clear existing rows from the table
+for row in table.find_all("tr")[1:]:
+    row.decompose()
+
 # Get the last 7 days of data and append to the table
 last_days_data = stock_data.head(7)
 for _, row in last_days_data.iterrows():

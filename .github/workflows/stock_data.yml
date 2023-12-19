@@ -1,39 +1,26 @@
-name: Generate HTML Content
+name: Update Stock Data
 
 on:
-  push:
-    branches:
-      - main  # Adjust to the branch you want to trigger the workflow on
+  schedule:
+    - cron: '0 0 * * *'  # Run the workflow every day at midnight UTC
 
 jobs:
-  generate-html:
+  update_stock_data:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-        architecture: x64
-    
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
 
-    - name: Install dependencies
-      run: |
-        pip install pandas-datareader pandas BeautifulSoup  # Install the required packages
-      working-directory: ./  # Adjust this to your script directory
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas_datareader beautifulsoup4
 
-    - name: Run Python Scripts
-      run: |
-        python stock_req.py  # Run your Python script
-      working-directory: ./  # Adjust this to your script directory
-
-    - name: Commit and Push Changes
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add .  # Stage the changes
-        git commit -m "Update HTML content"  # Commit the changes
-        git push  # Push the changes to your repository
+      - name: Run Python script
+        run: python stock_req.py
