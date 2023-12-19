@@ -5,135 +5,113 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Stock Data</title>
+    <title>Stock Data - <span id="Stock_Name">Company Name</span></title>
     <link href="style.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
+
+    <header>
+        <h1>Stock Market Data for <span id="Stock_Name">Company Name</span></h1>
+    </header>
+    <form id="stock-symbol-form">
+        <label for="stock-symbol">Enter Stock Symbol: </label>
+        <input type="text" id="stock-symbol" name="stock-symbol" required>
+        <button type="submit">Update</button>
+    </form>
+    <script>
+        // Function to handle button click and trigger Azure Function App
+        function updateStockData() {
+            // Make an HTTP request to your Azure Function App endpoint
+            fetch('https://stocktablecreation.azurewebsites.net', {
+                method: 'POST', // Use 'POST' if required by your function app
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Stock data updated:', data);
+                    // Optionally, update the table or display a success message
+                })
+                .catch(error => {
+                    console.error('Error updating stock data:', error);
+                    // Optionally, display an error message
+                });
+        }
+
+        // Attach the updateStockData function to the button click event
+        document.getElementById('updateButton').addEventListener('click', updateStockData);
+    </script>
     <table>
-        <table>
-            <tr>
-                <th>Date</th>
-                <th>Open</th>
-                <th>High</th>
-                <th>Low</th>
-                <th>Close</th>
-                <th>Volume</th>
-            </tr>
-            <tr>
-                <td>2023-10-31 00:00:00</td>
-                <td>169.35</td>
-                <td>170.9</td>
-                <td>167.9</td>
-                <td>170.77</td>
-                <td>44846017.0</td>
-            </tr>
-            <tr>
-                <td>2023-10-30 00:00:00</td>
-                <td>169.02</td>
-                <td>171.17</td>
-                <td>168.87</td>
-                <td>170.29</td>
-                <td>51130955.0</td>
-            </tr>
-            <tr>
-                <td>2023-10-27 00:00:00</td>
-                <td>166.91</td>
-                <td>168.96</td>
-                <td>166.83</td>
-                <td>168.22</td>
-                <td>58499129.0</td>
-            </tr>
-            <tr>
-                <td>2023-10-26 00:00:00</td>
-                <td>170.37</td>
-                <td>171.3775</td>
-                <td>165.67</td>
-                <td>166.89</td>
-                <td>70625258.0</td>
-            </tr>
-            <tr>
-                <td>2023-10-25 00:00:00</td>
-                <td>171.88</td>
-                <td>173.06</td>
-                <td>170.65</td>
-                <td>171.1</td>
-                <td>57156962.0</td>
-            </tr>
-            <tr>
-                <td>2023-10-24 00:00:00</td>
-                <td>173.05</td>
-                <td>173.67</td>
-                <td>171.45</td>
-                <td>173.44</td>
-                <td>43816644.0</td>
-            </tr>
-            <tr>
-                <td>2023-10-23 00:00:00</td>
-                <td>170.91</td>
-                <td>174.01</td>
-                <td>169.93</td>
-                <td>173.0</td>
-                <td>55980109.0</td>
-            </tr>
-        </table>
         <tr>
-            <td text="2023-10-31 00:00:00"></td>
-            <td text="169.35"></td>
-            <td text="170.9"></td>
-            <td text="167.9"></td>
-            <td text="170.77"></td>
-            <td text="44846017.0"></td>
+            <th>Date</th>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+            <th>Volume</th>
         </tr>
         <tr>
-            <td text="2023-10-30 00:00:00"></td>
-            <td text="169.02"></td>
-            <td text="171.17"></td>
-            <td text="168.87"></td>
-            <td text="170.29"></td>
-            <td text="51130955.0"></td>
+            <td>2023-10-31 00:00:00</td>
+            <td>169.35</td>
+            <td>170.9</td>
+            <td>167.9</td>
+            <td>170.77</td>
+            <td>44846017.0</td>
         </tr>
         <tr>
-            <td text="2023-10-27 00:00:00"></td>
-            <td text="166.91"></td>
-            <td text="168.96"></td>
-            <td text="166.83"></td>
-            <td text="168.22"></td>
-            <td text="58499129.0"></td>
+            <td>2023-10-30 00:00:00</td>
+            <td>169.02</td>
+            <td>171.17</td>
+            <td>168.87</td>
+            <td>170.29</td>
+            <td>51130955.0</td>
         </tr>
         <tr>
-            <td text="2023-10-26 00:00:00"></td>
-            <td text="170.37"></td>
-            <td text="171.3775"></td>
-            <td text="165.67"></td>
-            <td text="166.89"></td>
-            <td text="70625258.0"></td>
+            <td>2023-10-27 00:00:00</td>
+            <td>166.91</td>
+            <td>168.96</td>
+            <td>166.83</td>
+            <td>168.22</td>
+            <td>58499129.0</td>
         </tr>
         <tr>
-            <td text="2023-10-25 00:00:00"></td>
-            <td text="171.88"></td>
-            <td text="173.06"></td>
-            <td text="170.65"></td>
-            <td text="171.1"></td>
-            <td text="57156962.0"></td>
+            <td>2023-10-26 00:00:00</td>
+            <td>170.37</td>
+            <td>171.3775</td>
+            <td>165.67</td>
+            <td>166.89</td>
+            <td>70625258.0</td>
         </tr>
         <tr>
-            <td text="2023-10-24 00:00:00"></td>
-            <td text="173.05"></td>
-            <td text="173.67"></td>
-            <td text="171.45"></td>
-            <td text="173.44"></td>
-            <td text="43816644.0"></td>
+            <td>2023-10-25 00:00:00</td>
+            <td>171.88</td>
+            <td>173.06</td>
+            <td>170.65</td>
+            <td>171.1</td>
+            <td>57156962.0</td>
         </tr>
         <tr>
-            <td text="2023-10-23 00:00:00"></td>
-            <td text="170.91"></td>
-            <td text="174.01"></td>
-            <td text="169.93"></td>
-            <td text="173.0"></td>
-            <td text="55980109.0"></td>
+            <td>2023-10-24 00:00:00</td>
+            <td>173.05</td>
+            <td>173.67</td>
+            <td>171.45</td>
+            <td>173.44</td>
+            <td>43816644.0</td>
+        </tr>
+        <tr>
+            <td>2023-10-23 00:00:00</td>
+            <td>170.91</td>
+            <td>174.01</td>
+            <td>169.93</td>
+            <td>173.0</td>
+            <td>55980109.0</td>
         </tr>
     </table>
+
+
 </body>
 
 </html>
