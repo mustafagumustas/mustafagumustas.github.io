@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SS25V6JWDZ"></script>
@@ -8,64 +7,59 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-SS25V6JWDZ');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mustafa Gumustas</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Link to the external CSS file -->
 </head>
-
 <body>
+<div class="page">
 
     <header>
-        <h1>Welcome to My Portfolio</h1>
+        <h1>Mustafa Gumustas</h1>
+        <p class="tagline">Astronomy student &nbsp;·&nbsp; amateur programmer</p>
     </header>
-    <nav><!-- Add navigation links here --></nav>
-    <div class="container">
-        <div class="sidebar">
-            <a href="#">About Me</a>
-            <a href="#">Projects</a>
-            <a href="#">Contact</a>
-            <a href="resume.html" target="_blank">View Resume</a>
-            <li><a href="age_calculator.html">Age Calculator</a></li>
-        </div>
 
-        <div class="main-content">
-            <section>
-                <h2>About Me</h2>
-                <p>Hi, my name is Mustafa, and I study Astronomy at Istanbul University. In my free time, I learned
-                    coding
-                    and fundamentals of programming by myself. This website is going to be my portfolio about my
-                    projects.
-                </p>
-            </section>
-            <section>
-                <h2>Projects</h2>
-                <ul>
-                    <li><a href="screen_time.html">Screen Time of Series</a></li>
-                    <li><a href="radio_telecope.html">Radio Telescope</a></li>
-                    <!-- <li><a href="#">Project 3</a></li> -->
-                    <li><a href="stock_data.html">View Stock Data</a></li>
+    <section id="about">
+        <h2>About</h2>
+        <p>Hi, I'm Mustafa. I study Astronomy at Istanbul University and spend a lot of my free time coding.
+        This site is where I host the tools and small projects I build for myself.</p>
+    </section>
 
-                </ul>
-            </section>
-            <section>
-                <h2 class="contact">Contact</h2>
-                <p>mustafagumustas6@gmail.com</p>
-            </section>
-            <section>
-                <h3 class="resume">Resume</h3>
-                <a href="resume.html" target="_blank" rel="noopener" class="resume-link">View Resume</a>
-            </section>
-        </div>
-    </div>
-    <footer>
-        <p>&copy; 2023 Mustafa Gumustas</p>
-    </footer>
+    <section id="projects">
+        <h2>Projects</h2>
+        <ul class="project-list">
+            <li>
+                <a href="shift-generator.html" class="project-link">
+                    <span class="project-name">Shift Calendar Generator</span>
+                    <span class="project-desc">18-day rotation → .ics</span>
+                </a>
+            </li>
+            <li>
+                <a href="screen_time.html" class="project-link">
+                    <span class="project-name">Screen Time of Series</span>
+                    <span class="project-desc">watch time visualiser</span>
+                </a>
+            </li>
+            <li>
+                <a href="radio_telecope.html" class="project-link">
+                    <span class="project-name">Radio Telescope</span>
+                    <span class="project-desc"></span>
+                </a>
+            </li>
+            <li>
+                <a href="stock_data.html" class="project-link">
+                    <span class="project-name">Stock Data</span>
+                    <span class="project-desc">price viewer</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <footer>mustafagumustas.com</footer>
+
+</div>
 </body>
-
 </html>

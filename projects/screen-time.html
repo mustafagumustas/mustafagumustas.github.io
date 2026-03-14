@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SS25V6JWDZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-SS25V6JWDZ');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Screen Time Visualizer project by Mustafa Gumustas.">
+    <title>Screen Time Visualizer • Mustafa Gumustas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../site.css">
+</head>
+
+<body>
+    <nav>
+        <div class="container nav-inner">
+            <div class="brand">
+                <div class="brand-mark">MG</div>
+                <div class="brand-text">
+                    <span>Mustafa Gumustas</span>
+                    <small>Project detail</small>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../projects.html">Projects</a>
+                <a href="../resume.html">Resume</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <div>
+                <div class="eyebrow">Project</div>
+                <h1>Screen Time Visualizer</h1>
+                <p class="lede">Analyzes TV series footage to detect character presence, then turns it into charts and
+                    animated timelines.</p>
+                <div class="hero-actions">
+                    <a class="btn primary" href="https://github.com/mustafagumustas/Screen-Time-Visualization"
+                        target="_blank">GitHub</a>
+                    <a class="btn" href="../projects.html">Back to list</a>
+                </div>
+                <div class="meta" style="margin-top: 0.8rem;">
+                    <span class="chip">Python</span>
+                    <span class="chip">Data viz</span>
+                    <span class="chip">Automation</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="eyebrow">Snapshot</div>
+                <div class="list" style="margin-top: 0.7rem;">
+                    <span>Pulls video frames, tags character appearances, and aggregates per-episode stats.</span>
+                    <span>Outputs bar charts and animated visuals showing who appears when.</span>
+                    <span>Works best with playlists/season links; handles scraping and processing.</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="overview">
+            <div class="section-head">
+                <div class="eyebrow">Overview</div>
+                <h2>What it does</h2>
+            </div>
+            <div class="detail-grid">
+                <div class="card">
+                    <h3>Flow</h3>
+                    <div class="list">
+                        <span>Ingest YouTube playlist or local episodes.</span>
+                        <span>Detect faces per frame, map to characters, aggregate screen time per episode.</span>
+                        <span>Generate plots (static + animated) for quick sharing.</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Notes</h3>
+                    <div class="list">
+                        <span>Built in Python; uses standard plotting stack.</span>
+                        <span>Easy to rerun on new shows—swap playlist and labels.</span>
+                        <span>Add screenshots/GIFs below for quick demos when you have them handy.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="highlights">
+            <div class="section-head">
+                <div class="eyebrow">Highlights</div>
+                <h2>Features</h2>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <h3>Data collection</h3>
+                    <p class="muted">Automatically fetches episodes via playlist link; ready to swap sources.</p>
+                </div>
+                <div class="card">
+                    <h3>Processing</h3>
+                    <p class="muted">Calculates percentage presence per episode and per season.</p>
+                </div>
+                <div class="card">
+                    <h3>Visualization</h3>
+                    <p class="muted">Builds static charts and animations to show character timelines.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="media">
+            <div class="section-head">
+                <div class="eyebrow">Media</div>
+                <h2>Screenshots</h2>
+                <p class="muted">Add PNGs/GIFs here when ready.</p>
+            </div>
+            <div class="media-grid">
+                <div class="media-placeholder">Add image</div>
+                <div class="media-placeholder">Add image</div>
+                <div class="media-placeholder">Add image</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Dark / amber · Static detail page.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
