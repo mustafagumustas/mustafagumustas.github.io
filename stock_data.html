@@ -1,117 +1,66 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Stock Data - <span id="Stock_Name">Company Name</span></title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+<div class="page">
+
+    <nav class="back-nav"><a href="index.html">← Back</a></nav>
 
     <header>
-        <h1>Stock Market Data for <span id="Stock_Name">Company Name</span></h1>
+        <h1>Stock Data</h1>
+        <p class="tagline" id="Stock_Name">Enter a symbol to load data</p>
     </header>
-    <form id="stock-symbol-form">
-        <label for="stock-symbol">Enter Stock Symbol: </label>
-        <input type="text" id="stock-symbol" name="stock-symbol" required>
-        <button type="submit">Update</button>
-    </form>
-    <script>
-        // Function to handle button click and trigger Azure Function App
-        function updateStockData() {
-            // Make an HTTP request to your Azure Function App endpoint
-            fetch('https://stocktablecreation.azurewebsites.net', {
-                method: 'POST', // Use 'POST' if required by your function app
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Stock data updated:', data);
-                    // Optionally, update the table or display a success message
-                })
-                .catch(error => {
-                    console.error('Error updating stock data:', error);
-                    // Optionally, display an error message
-                });
-        }
 
-        // Attach the updateStockData function to the button click event
-        document.getElementById('updateButton').addEventListener('click', updateStockData);
-    </script>
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Open</th>
-            <th>High</th>
-            <th>Low</th>
-            <th>Close</th>
-            <th>Volume</th>
-        </tr>
-        <tr>
-            <td>2023-10-31 00:00:00</td>
-            <td>169.35</td>
-            <td>170.9</td>
-            <td>167.9</td>
-            <td>170.77</td>
-            <td>44846017.0</td>
-        </tr>
-        <tr>
-            <td>2023-10-30 00:00:00</td>
-            <td>169.02</td>
-            <td>171.17</td>
-            <td>168.87</td>
-            <td>170.29</td>
-            <td>51130955.0</td>
-        </tr>
-        <tr>
-            <td>2023-10-27 00:00:00</td>
-            <td>166.91</td>
-            <td>168.96</td>
-            <td>166.83</td>
-            <td>168.22</td>
-            <td>58499129.0</td>
-        </tr>
-        <tr>
-            <td>2023-10-26 00:00:00</td>
-            <td>170.37</td>
-            <td>171.3775</td>
-            <td>165.67</td>
-            <td>166.89</td>
-            <td>70625258.0</td>
-        </tr>
-        <tr>
-            <td>2023-10-25 00:00:00</td>
-            <td>171.88</td>
-            <td>173.06</td>
-            <td>170.65</td>
-            <td>171.1</td>
-            <td>57156962.0</td>
-        </tr>
-        <tr>
-            <td>2023-10-24 00:00:00</td>
-            <td>173.05</td>
-            <td>173.67</td>
-            <td>171.45</td>
-            <td>173.44</td>
-            <td>43816644.0</td>
-        </tr>
-        <tr>
-            <td>2023-10-23 00:00:00</td>
-            <td>170.91</td>
-            <td>174.01</td>
-            <td>169.93</td>
-            <td>173.0</td>
-            <td>55980109.0</td>
-        </tr>
-    </table>
+    <section>
+        <form id="stock-symbol-form">
+            <label for="stock-symbol">Stock symbol</label>
+            <input type="text" id="stock-symbol" name="stock-symbol" placeholder="e.g. AAPL" required>
+            <button type="submit">Update</button>
+        </form>
 
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>Volume</th>
+            </tr>
+            <tr><td>2023-10-31</td><td>169.35</td><td>170.90</td><td>167.90</td><td>170.77</td><td>44,846,017</td></tr>
+            <tr><td>2023-10-30</td><td>169.02</td><td>171.17</td><td>168.87</td><td>170.29</td><td>51,130,955</td></tr>
+            <tr><td>2023-10-27</td><td>166.91</td><td>168.96</td><td>166.83</td><td>168.22</td><td>58,499,129</td></tr>
+            <tr><td>2023-10-26</td><td>170.37</td><td>171.38</td><td>165.67</td><td>166.89</td><td>70,625,258</td></tr>
+            <tr><td>2023-10-25</td><td>171.88</td><td>173.06</td><td>170.65</td><td>171.10</td><td>57,156,962</td></tr>
+            <tr><td>2023-10-24</td><td>173.05</td><td>173.67</td><td>171.45</td><td>173.44</td><td>43,816,644</td></tr>
+            <tr><td>2023-10-23</td><td>170.91</td><td>174.01</td><td>169.93</td><td>173.00</td><td>55,980,109</td></tr>
+        </table>
+    </section>
 
+    <footer>mustafagumustas.com</footer>
+
+</div>
+
+<script>
+    function updateStockData() {
+        fetch('https://stocktablecreation.azurewebsites.net', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        })
+        .then(response => response.json())
+        .then(data => { console.log('Stock data updated:', data); })
+        .catch(error => { console.error('Error:', error); });
+    }
+
+    document.getElementById('stock-symbol-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        updateStockData();
+    });
+</script>
 </body>
-
 </html>
