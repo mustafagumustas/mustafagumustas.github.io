@@ -1,201 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shift Calendar Generator</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shift & Sports Planner</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #111;
-      color: #c8c8c8;
-      min-height: 100vh;
-      padding: 2rem 1rem 4rem;
-    }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #111;
+  color: #c8c8c8;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+}
 
-    .container { max-width: 680px; margin: 0 auto; }
+.container { max-width: 920px; margin: 0 auto; }
 
-    .back-nav { margin-bottom: 1.5rem; }
-    .back-nav a { font-size: 0.8rem; color: #555; text-decoration: none; }
-    .back-nav a:hover { color: #7F77DD; }
+.back-nav { margin-bottom: 1.5rem; }
+.back-nav a { font-size: 0.8rem; color: #555; text-decoration: none; }
+.back-nav a:hover { color: #7F77DD; }
 
-    h1 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: #f0f0f0;
-      margin-bottom: 0.25rem;
-    }
-    .subtitle {
-      font-size: 0.85rem;
-      color: #555;
-      margin-bottom: 1.5rem;
-    }
+h1 { font-size: 1.4rem; font-weight: 600; color: #f0f0f0; margin-bottom: 0.25rem; }
+.subtitle { font-size: 0.85rem; color: #555; margin-bottom: 1.5rem; }
 
-    .card {
-      background: #181818;
-      border: 1px solid #1e1e1e;
-      border-radius: 12px;
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1rem;
-    }
+.card {
+  background: #181818;
+  border: 1px solid #1e1e1e;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.card-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; color: #f0f0f0; }
+.hint { font-size: 0.78rem; color: #555; line-height: 1.5; }
 
-    .card-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: #f0f0f0;
-    }
+.field { margin-bottom: 1rem; }
+.field:last-child { margin-bottom: 0; }
+label { display: block; font-size: 0.8rem; color: #555; margin-bottom: 5px; }
 
-    .field { margin-bottom: 1rem; }
-    .field:last-child { margin-bottom: 0; }
+input[type="date"], input[type="number"], select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: #1a1a1a;
+  color: #f0f0f0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+input[type="date"]:focus, input[type="number"]:focus, select:focus {
+  outline: none;
+  border-color: #7F77DD;
+  box-shadow: 0 0 0 3px rgba(127,119,221,0.15);
+}
 
-    label {
-      display: block;
-      font-size: 0.8rem;
-      color: #555;
-      margin-bottom: 5px;
-    }
+.grid-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 1rem; }
+.grid-fields .field { margin-bottom: 0; }
 
-    input[type="date"],
-    select {
-      width: 100%;
-      padding: 9px 12px;
-      border: 1px solid #2a2a2a;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      background: #1a1a1a;
-      color: #f0f0f0;
-      appearance: none;
-      -webkit-appearance: none;
-    }
+.checkbox-group { display: flex; flex-direction: column; gap: 8px; }
+.checkbox-label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.875rem; color: #c8c8c8; cursor: pointer; margin-bottom: 0;
+}
+.checkbox-label input { width: 16px; height: 16px; cursor: pointer; accent-color: #7F77DD; }
 
-    input[type="date"]:focus,
-    select:focus {
-      outline: none;
-      border-color: #7F77DD;
-      box-shadow: 0 0 0 3px rgba(127,119,221,0.15);
-    }
+.override-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+.override-row input, .override-row select { flex: 1; min-width: 120px; }
 
-    .checkbox-group { display: flex; flex-direction: column; gap: 8px; }
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.875rem;
-      color: #c8c8c8;
-      cursor: pointer;
-    }
-    .checkbox-label input { width: 16px; height: 16px; cursor: pointer; accent-color: #7F77DD; }
+.remove-btn {
+  background: none; border: 1px solid #2a2a2a; border-radius: 6px;
+  padding: 6px 10px; font-size: 0.8rem; cursor: pointer; color: #555; flex-shrink: 0;
+}
+.remove-btn:hover { border-color: #E24B4A; color: #E24B4A; }
 
-    .override-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-    }
-    .override-row input,
-    .override-row select { flex: 1; min-width: 120px; }
-    .remove-btn {
-      background: none;
-      border: 1px solid #2a2a2a;
-      border-radius: 6px;
-      padding: 6px 10px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      color: #555;
-      flex-shrink: 0;
-    }
-    .remove-btn:hover { border-color: #E24B4A; color: #E24B4A; }
+.add-btn {
+  background: none; border: 1px dashed #2a2a2a; border-radius: 8px;
+  padding: 8px 14px; font-size: 0.8rem; cursor: pointer; color: #555; width: 100%; margin-top: 4px;
+}
+.add-btn:hover { border-color: #7F77DD; color: #7F77DD; }
 
-    .add-btn {
-      background: none;
-      border: 1px dashed #2a2a2a;
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      color: #555;
-      width: 100%;
-      margin-top: 4px;
-    }
-    .add-btn:hover { border-color: #7F77DD; color: #7F77DD; }
+/* pool timetable editor */
+details.pool { margin-top: 1rem; border-top: 1px solid #1e1e1e; padding-top: 0.9rem; }
+details.pool summary { font-size: 0.8rem; color: #888; cursor: pointer; }
+.pool-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.pool-day { width: 34px; font-size: 0.75rem; color: #555; }
+.pchip {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin: 0; padding: 4px 8px; border: 1px solid #2a2a2a; border-radius: 6px;
+  font-size: 0.74rem; color: #aaa; cursor: pointer;
+}
+.pchip input { accent-color: #2BB6C9; }
+.pchip small { color: #555; font-size: 0.66rem; }
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 1rem;
-    }
-    .stat {
-      background: #181818;
-      border: 1px solid #1e1e1e;
-      border-radius: 10px;
-      padding: 10px;
-      text-align: center;
-    }
-    .stat-n { font-size: 1.4rem; font-weight: 600; }
-    .stat-l { font-size: 0.7rem; color: #555; margin-top: 2px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 8px; }
+.stat { background: #181818; border: 1px solid #1e1e1e; border-radius: 10px; padding: 10px; text-align: center; }
+.stat-n { font-size: 1.4rem; font-weight: 600; }
+.stat-l { font-size: 0.7rem; color: #555; margin-top: 2px; }
 
-    .preview-list { max-height: 280px; overflow-y: auto; }
-    .preview-day {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 6px 0;
-      border-bottom: 1px solid #1e1e1e;
-      font-size: 0.82rem;
-    }
-    .preview-day:last-child { border-bottom: none; }
-    .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-    .day-date { color: #555; min-width: 110px; }
-    .day-label { color: #c8c8c8; flex: 1; }
-    .day-note { color: #444; font-size: 0.75rem; }
-    .override-badge {
-      font-size: 0.68rem;
-      background: #2a2218;
-      color: #c8a228;
-      padding: 1px 6px;
-      border-radius: 4px;
-      margin-left: 4px;
-    }
+/* tabs */
+.tabs { display: flex; gap: 6px; margin-bottom: 14px; align-items: center; flex-wrap: wrap; }
+.tab {
+  background: none; border: 1px solid #2a2a2a; color: #777; border-radius: 8px;
+  padding: 6px 14px; cursor: pointer; font-size: 0.8rem;
+}
+.tab.active { border-color: #7F77DD; color: #f0f0f0; background: #1d1b2e; }
+.tabs .checkbox-label { margin-left: auto; font-size: 0.75rem; color: #777; }
 
-    .dl-btn {
-      width: 100%;
-      padding: 13px;
-      background: #7F77DD;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      margin-bottom: 0.5rem;
-      transition: background 0.15s;
-    }
-    .dl-btn:hover { background: #534AB7; }
+/* calendar */
+.cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.cal-title { font-weight: 600; color: #f0f0f0; font-size: 0.95rem; }
+.nav-btn {
+  background: none; border: 1px solid #2a2a2a; color: #aaa; border-radius: 8px;
+  width: 34px; height: 30px; cursor: pointer; font-size: 1rem;
+}
+.nav-btn:hover:not(:disabled) { border-color: #7F77DD; color: #fff; }
+.nav-btn:disabled { opacity: 0.3; cursor: default; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.cal-dow { font-size: 0.68rem; color: #555; text-align: center; padding: 4px 0; }
+.cal-cell {
+  background: #141414; border: 1px solid #1e1e1e; border-radius: 8px;
+  min-height: 108px; padding: 4px; display: flex; flex-direction: column; gap: 3px; overflow: hidden;
+}
+.cal-cell.out { opacity: 0.25; }
+.cal-cell.today { border-color: #7F77DD; }
+.cal-num { font-size: 0.7rem; color: #777; }
+.pill {
+  font-size: 0.62rem; border-radius: 4px; padding: 1px 5px; color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ev {
+  font-size: 0.62rem; border-radius: 4px; padding: 1px 4px; border-left: 3px solid #888;
+  background: #1c1c1c; color: #ddd; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ev.sleep { color: #777; background: #161616; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; font-size: 0.72rem; color: #666; }
+.legend span::before {
+  content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 2px;
+  background: var(--c); margin-right: 5px;
+}
 
-    .dl-hint {
-      font-size: 0.78rem;
-      color: #555;
-      text-align: center;
-      line-height: 1.5;
-    }
+/* list */
+.preview-list { max-height: 420px; overflow-y: auto; }
+.preview-day {
+  display: flex; align-items: center; gap: 10px; padding: 6px 0;
+  border-bottom: 1px solid #1e1e1e; font-size: 0.82rem; flex-wrap: wrap;
+}
+.preview-day:last-child { border-bottom: none; }
+.dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.day-date { color: #555; min-width: 100px; }
+.day-label { color: #c8c8c8; min-width: 110px; }
+.day-note { color: #8a8a8a; font-size: 0.75rem; }
+.override-badge {
+  font-size: 0.68rem; background: #2a2218; color: #c8a228;
+  padding: 1px 6px; border-radius: 4px; margin-left: 4px;
+}
 
-    @media (max-width: 480px) {
-      .stats { grid-template-columns: repeat(2, 1fr); }
-      h1 { font-size: 1.2rem; }
-    }
-  </style>
+.dl-btn {
+  width: 100%; padding: 13px; background: #7F77DD; color: #fff; border: none;
+  border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer;
+  margin-bottom: 0.5rem; transition: background 0.15s;
+}
+.dl-btn:hover { background: #534AB7; }
+.dl-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 0.5rem; }
+.dl-row .dl-btn { margin-bottom: 0; padding: 13px 6px; font-size: 0.9rem; }
+.dl-sleep { background: #4a5568; }
+.dl-sleep:hover { background: #374151; }
+.dl-th { background: #B07CC6; }
+.dl-th:hover { background: #8d5fa3; }
+.dl-alt { background: #D9A93A; color: #111; }
+.dl-alt:hover { background: #b88b24; }
+.dl-link { display: block; margin: 0 auto 0.75rem; background: none; border: none; color: #666; font-size: 0.78rem; cursor: pointer; text-decoration: underline; }
+.dl-link:hover { color: #7F77DD; }
+@media (max-width: 480px) { .dl-row { grid-template-columns: repeat(2, 1fr); } }
+.dl-hint { font-size: 0.78rem; color: #555; text-align: center; line-height: 1.5; }
+
+@media (max-width: 640px) {
+  .cal-cell { min-height: 86px; padding: 3px; }
+  .pill, .ev { font-size: 0.56rem; padding: 1px 3px; }
+  .ev { border-left-width: 2px; }
+}
+@media (max-width: 480px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  h1 { font-size: 1.2rem; }
+  .card { padding: 1rem; }
+}
+</style>
 </head>
 <body>
 <div class="container">
   <nav class="back-nav"><a href="index.html">← Back</a></nav>
-
-  <h1>Shift calendar generator</h1>
-  <p class="subtitle">18-day rotation &nbsp;·&nbsp; 4 on, 2 off &nbsp;·&nbsp; Noon / Morning / Night</p>
+  <h1>Shift &amp; sports planner</h1>
+  <p class="subtitle">18-day rotation &nbsp;·&nbsp; 4 on, 2 off &nbsp;·&nbsp; Noon / Morning / Night &nbsp;·&nbsp; gym, swim and run days planned around it</p>
 
   <div class="card">
     <div class="card-title">Your schedule</div>
@@ -222,23 +218,73 @@
     <div class="field">
       <label>Generate how many months?</label>
       <select id="months">
-        <option value="1">1 month</option>
+        <option value="1" selected>1 month</option>
         <option value="2">2 months</option>
-        <option value="3" selected>3 months</option>
+        <option value="3">3 months</option>
         <option value="6">6 months</option>
         <option value="12">12 months</option>
       </select>
     </div>
 
     <div class="field">
-      <label>Include in calendar</label>
+      <label>Include in the combined .ics and the calendar view (the separate download buttons always include their own part)</label>
       <div class="checkbox-group">
         <label class="checkbox-label"><input type="checkbox" id="incShift" checked> Work shifts</label>
         <label class="checkbox-label"><input type="checkbox" id="incSleep" checked> Sleep blocks</label>
-        <label class="checkbox-label"><input type="checkbox" id="incGym" checked> Gym windows</label>
-        <label class="checkbox-label"><input type="checkbox" id="incRun" checked> Running club (Tue/Thu off days)</label>
+        <label class="checkbox-label"><input type="checkbox" id="incGym" checked> Gym sessions</label>
+        <label class="checkbox-label"><input type="checkbox" id="incSwim" checked> Swim sessions</label>
+        <label class="checkbox-label"><input type="checkbox" id="incRun" checked> Runs (incl. running club)</label>
+        <label class="checkbox-label"><input type="checkbox" id="incTherapy" checked> Therapy (Mondays, 50 min — time follows the shift; sports are planned around it)</label>
       </div>
     </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Sports plan</div>
+    <p class="hint" style="margin-bottom:12px;">Sessions are placed only in free time: after sleep, before you leave for work, and (on night shifts) before the pre-shift nap. Runs never go three days in a row.</p>
+
+    <div class="grid-fields">
+      <div class="field">
+        <label>Gym per week</label>
+        <select id="gymPerWeek">
+          <option>0</option><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Swims per week</label>
+        <select id="swimPerWeek">
+          <option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Runs per week (incl. club)</label>
+        <select id="runPerWeek">
+          <option>0</option><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Easy run (km)</label>
+        <input type="number" id="easyKm" value="6" min="2" max="30" step="1">
+      </div>
+      <div class="field">
+        <label>Long run (km, 0 = none)</label>
+        <input type="number" id="longKm" value="10" min="0" max="42" step="1">
+      </div>
+      <div class="field">
+        <label>No running before</label>
+        <input type="date" id="runFrom" value="2026-11-05">
+      </div>
+    </div>
+
+    <div class="checkbox-group">
+      <label class="checkbox-label"><input type="checkbox" id="useClub" checked> Running club (Tue/Thu, off days only, 19:30) counts as a run</label>
+      <label class="checkbox-label"><input type="checkbox" id="gymSplit" checked> Label gym days Upper / Lower</label>
+    </div>
+
+    <details class="pool">
+      <summary>Pool timetable (men's / mixed sessions only) — tap to edit</summary>
+      <div id="poolChips"></div>
+    </details>
   </div>
 
   <div class="card">
@@ -249,22 +295,51 @@
   </div>
 
   <div class="stats" id="statsRow"></div>
+  <div class="stats" id="sportsRow"></div>
 
   <div class="card">
-    <div class="card-title">
-      Preview
-      <span id="previewLabel" style="font-weight:400;font-size:0.8rem;color:#555;margin-left:6px;"></span>
+    <div class="tabs">
+      <button class="tab active" id="tabCal" onclick="setView('cal')">Calendar</button>
+      <button class="tab" id="tabList" onclick="setView('list')">List</button>
+      <label class="checkbox-label"><input type="checkbox" id="showSleep"> Show sleep in view</label>
     </div>
-    <div class="preview-list" id="preview">
-      <div style="color:#444;font-size:0.85rem;padding:8px 0">Pick a start date to see your schedule.</div>
+
+    <div id="viewCal">
+      <div class="cal-head">
+        <button class="nav-btn" id="calPrev" onclick="calNav(-1)">‹</button>
+        <div class="cal-title" id="calTitle"></div>
+        <button class="nav-btn" id="calNext" onclick="calNav(1)">›</button>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="legend">
+        <span style="--c:#7F77DD">Noon</span>
+        <span style="--c:#378ADD">Morning</span>
+        <span style="--c:#E24B4A">Night</span>
+        <span style="--c:#1D9E75">Off</span>
+        <span style="--c:#2BB6C9">Swim</span>
+        <span style="--c:#F0883E">Run / club</span>
+        <span style="--c:#B07CC6">Therapy</span>
+        <span style="--c:#D9A93A">Gym</span>
+      </div>
+    </div>
+
+    <div id="viewList" style="display:none">
+      <div class="preview-list" id="preview"></div>
     </div>
   </div>
 
-  <button class="dl-btn" onclick="downloadICS()">Download .ics &nbsp;→&nbsp; Add to iPhone / Calendar</button>
+  <div class="dl-row">
+    <button class="dl-btn" onclick="downloadICS('shift')">Shifts .ics</button>
+    <button class="dl-btn dl-sleep" onclick="downloadICS('sleep')">Sleep .ics</button>
+    <button class="dl-btn dl-alt" onclick="downloadICS('sports')">Sports .ics</button>
+    <button class="dl-btn dl-th" onclick="downloadICS('therapy')">Therapy .ics</button>
+  </div>
+  <button class="dl-link" onclick="downloadICS('all')">or download everything in one file</button>
   <p class="dl-hint" id="dlHint">Opens in Apple Calendar, Google Calendar, Outlook — any calendar app.</p>
 </div>
 
 <script>
+/* ---------- constants ---------- */
 const CYCLE = [
   {t:'noon',off:false},{t:'noon',off:false},{t:'noon',off:false},{t:'noon',off:false},
   {t:'off',off:true},{t:'off',off:true},
@@ -276,24 +351,81 @@ const CYCLE = [
 const SHIFT_START = {noon:0, morning:6, night:12};
 const COLORS = {noon:'#7F77DD', morning:'#378ADD', night:'#E24B4A', off:'#1D9E75'};
 const LABELS = {noon:'Noon shift', morning:'Morning shift', night:'Night shift', off:'Day off'};
-const TIMES  = {noon:{s:[13,0],e:[22,0],next:false}, morning:{s:[7,0],e:[16,0],next:false}, night:{s:[22,0],e:[7,0],next:true}};
-
+const SHORT  = {noon:'Noon 13–22', morning:'Morning 07–16', night:'Night 22–07', off:'Off'};
+const TIMES = {
+  noon:    {s:[13,0], e:[22,0], next:false},
+  morning: {s:[7,0],  e:[16,0], next:false},
+  night:   {s:[22,0], e:[7,0],  next:true}
+};
 const DAY_OPTIONS = {
-  noon:    [{v:0,l:'Work day 1 of 4'},{v:1,l:'Work day 2 of 4'},{v:2,l:'Work day 3 of 4'},{v:3,l:'Work day 4 of 4'},{v:4,l:'Off day 1 of 2'},{v:5,l:'Off day 2 of 2'}],
+  noon: [{v:0,l:'Work day 1 of 4'},{v:1,l:'Work day 2 of 4'},{v:2,l:'Work day 3 of 4'},{v:3,l:'Work day 4 of 4'},{v:4,l:'Off day 1 of 2'},{v:5,l:'Off day 2 of 2'}],
   morning: [{v:0,l:'Work day 1 of 4'},{v:1,l:'Work day 2 of 4'},{v:2,l:'Work day 3 of 4'},{v:3,l:'Work day 4 of 4'},{v:4,l:'Off day 1 of 2'},{v:5,l:'Off day 2 of 2 (eve of nights)'}],
-  night:   [{v:0,l:'Work day 1 of 4'},{v:1,l:'Work day 2 of 4'},{v:2,l:'Work day 3 of 4'},{v:3,l:'Work day 4 of 4'},{v:4,l:'Off day 1 of 2 (recovery)'},{v:5,l:'Off day 2 of 2'}],
+  night: [{v:0,l:'Work day 1 of 4'},{v:1,l:'Work day 2 of 4'},{v:2,l:'Work day 3 of 4'},{v:3,l:'Work day 4 of 4'},{v:4,l:'Off day 1 of 2 (recovery)'},{v:5,l:'Off day 2 of 2'}],
+};
+const SPORT = {
+  swim:  {color:'#2BB6C9', icon:'🏊'},
+  run:   {color:'#F0883E', icon:'🏃'},
+  club:  {color:'#F0883E', icon:'👟'},
+  gym:   {color:'#D9A93A', icon:'🏋️'},
+  sleep: {color:'#555555', icon:'😴'},
+  therapy: {color:'#B07CC6', icon:'🗣️'}
+};
+const DOW_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const CLUB_KM = 7;      // Adidas Runners group run, roughly 7 km
+const CLUB_START = 19*60+30, CLUB_END = 21*60;
+
+/* Pool timetable — men's (E) and mixed (K) sessions only. Key = weekday (0 = Sunday). */
+const POOL_RAW = {
+  1: [['12:30','13:30','E'],['18:30','19:30','E'],['20:00','21:00','E'],['21:30','22:30','E']],
+  2: [['06:30','07:30','K'],['08:00','09:00','E'],['09:30','10:30','E']],
+  3: [['12:30','13:30','E'],['18:30','19:30','E'],['20:00','21:00','E'],['21:30','22:30','E']],
+  4: [['06:30','07:30','K'],['08:00','09:00','E'],['09:30','10:30','E']],
+  5: [['14:00','15:00','E'],['17:00','18:00','E'],['20:00','21:00','E'],['21:30','22:30','E']],
+  6: [['07:30','08:30','E']],
+  0: [['18:30','19:30','E'],['20:00','21:00','E']]
+};
+const POOL = [];
+Object.keys(POOL_RAW).forEach(dow => POOL_RAW[dow].forEach(([s,e,g]) => {
+  POOL.push({id:`${dow}-${s}`, dow:+dow, s:toMin(s), e:toMin(e), g, label:`${s}–${e}`});
+}));
+let poolOff = new Set();
+let therapyOn = true;
+
+/* Therapy: every Monday, 50 min. Time depends on that Monday's shift (edit these to taste). */
+const THERAPY_START = {noon: 11*60, morning: 18*60, night: 13*60, off: 13*60};
+function therapyBlock(d, force) {
+  if ((!therapyOn && !force) || d.date.getDay() !== 1) return null;
+  const s = THERAPY_START[kindOf(d.type)];
+  return {kind:'therapy', s, e:s+50};
+}
+
+/* preferred start (minutes) per activity and day type */
+const PREF = {
+  run:  {noon:9*60,      morning:17*60+30, night:16*60, off:17*60},
+  gym:  {noon:9*60,      morning:17*60+30, night:14*60, off:9*60},
+  swim: {noon:9*60+30,   morning:18*60+30, night:17*60, off:18*60+30}
 };
 
+/* ---------- helpers ---------- */
+function pad(n) { return String(n).padStart(2,'0'); }
+function toMin(hhmm) { const [h,m] = hhmm.split(':').map(Number); return h*60+m; }
+function fmtMin(x) { x = ((x%1440)+1440)%1440; return pad(Math.floor(x/60)) + ':' + pad(x%60); }
+function addDays(d, n) { const r = new Date(d); r.setDate(r.getDate()+n); return r; }
+function dkey(d) { return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+function parseKey(s) { return new Date(s + 'T00:00:00'); }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function chk(id) { return document.getElementById(id).checked; }
+function val(id) { return document.getElementById(id).value; }
+function kindOf(type) { return (!type || type.off || type.t === 'off') ? 'off' : type.t; }
+function fmtDate(d) { return d.toLocaleDateString('en-GB', {weekday:'short', day:'numeric', month:'short'}); }
+
 function updateDayOptions() {
-  const shift = document.getElementById('startShift').value;
+  const shift = val('startShift');
   const sel = document.getElementById('startDay');
   const cur = sel.value;
   sel.innerHTML = DAY_OPTIONS[shift].map(o => `<option value="${o.v}"${o.v==cur?' selected':''}>${o.l}</option>`).join('');
   generate();
 }
-
-function addDays(d, n) { const r = new Date(d); r.setDate(r.getDate()+n); return r; }
-function pad(n) { return String(n).padStart(2,'0'); }
 
 function getCyclePos(startDate, startShift, dayOffset, date) {
   const diff = Math.round((date - startDate) / 86400000);
@@ -329,183 +461,492 @@ function addOverride() {
   document.getElementById('overrides').appendChild(div);
 }
 
-function fmtDate(d) {
-  return d.toLocaleDateString('en-GB', {weekday:'short', day:'numeric', month:'short'});
+function buildPoolChips() {
+  const order = [1,2,3,4,5,6,0];
+  document.getElementById('poolChips').innerHTML = order.map(dow => {
+    const chips = POOL.filter(p => p.dow === dow).map(p =>
+      `<label class="pchip"><input type="checkbox" data-id="${p.id}" checked> ${p.label} <small>${p.g==='K'?'mixed':'men'}</small></label>`
+    ).join('');
+    return `<div class="pool-row"><span class="pool-day">${DOW_NAMES[dow]}</span>${chips}</div>`;
+  }).join('');
+  document.querySelectorAll('#poolChips input').forEach(c => c.addEventListener('change', generate));
 }
 
-function generate() {
-  const sd = document.getElementById('startDate').value;
-  if (!sd) return;
-  const startDate  = new Date(sd + 'T00:00:00');
-  const startShift = document.getElementById('startShift').value;
-  const dayOffset  = parseInt(document.getElementById('startDay').value || '0');
-  const months     = parseInt(document.getElementById('months').value);
-  const overrides  = getOverrides();
+/* ---------- config + day model ---------- */
+function readConfig() {
+  const sd = val('startDate');
+  if (!sd) return null;
+  const rf = val('runFrom');
+  return {
+    startDate: parseKey(sd),
+    startShift: val('startShift'),
+    dayOffset: parseInt(val('startDay') || '0'),
+    months: parseInt(val('months')),
+    overrides: getOverrides(),
+    inc: {shift:chk('incShift'), sleep:chk('incSleep'), gym:chk('incGym'), swim:chk('incSwim'), run:chk('incRun'), therapy:chk('incTherapy')},
+    plan: {
+      gym: parseInt(val('gymPerWeek')), swim: parseInt(val('swimPerWeek')), run: parseInt(val('runPerWeek')),
+      easy: Math.max(2, parseInt(val('easyKm')) || 6), long: Math.max(0, parseInt(val('longKm')) || 0),
+      runFrom: rf ? parseKey(rf) : null, useClub: chk('useClub'), split: chk('gymSplit')
+    }
+  };
+}
 
-  const endDate = new Date(startDate);
-  endDate.setMonth(endDate.getMonth() + months);
+function typeAt(cfg, date) {
+  const key = dkey(date);
+  if (cfg.overrides[key]) { const s = cfg.overrides[key]; return {t:s, off:s==='off', override:true}; }
+  return getCyclePos(cfg.startDate, cfg.startShift, cfg.dayOffset, date) || {t:'off', off:true, unknown:true};
+}
 
+function buildDays(cfg) {
+  const end = new Date(cfg.startDate);
+  end.setMonth(end.getMonth() + cfg.months);
   const days = [];
-  let cur = new Date(startDate);
-  while (cur < endDate) {
-    const key = cur.toISOString().slice(0,10);
-    const type = overrides[key]
-      ? {t: overrides[key], off: overrides[key]==='off', override: true}
-      : getCyclePos(startDate, startShift, dayOffset, cur);
-    days.push({date: new Date(cur), type});
-    cur = addDays(cur, 1);
+  for (let cur = new Date(cfg.startDate); cur < end; cur = addDays(cur, 1)) {
+    days.push({
+      date: new Date(cur), key: dkey(cur), type: typeAt(cfg, cur),
+      prevType: typeAt(cfg, addDays(cur, -1)), nextType: typeAt(cfg, addDays(cur, 1)),
+      items: [], sports: []
+    });
+  }
+  return days;
+}
+
+/* free window of a day, in minutes from midnight */
+function dayCtx(d) {
+  const k = kindOf(d.type), pk = kindOf(d.prevType), nk = kindOf(d.nextType);
+  let fs, fe;
+  if (k === 'noon')         { fs = 8*60;        fe = 11*60+30; }           // wake 07:00, leave 12:30 (1 h to shower + get ready)
+  else if (k === 'morning') { fs = 16*60+45;    fe = (nk==='morning' ? 22*60 : 23*60) - 30; }
+  else if (k === 'night')   { fs = 13*60+30;    fe = 17*60+30; }           // post-night sleep until 13:00, nap 18:00
+  else {
+    fs = (pk === 'night') ? 14*60 : 8*60;                                  // wake 07:30 (or 13:00 after nights)
+    const sleep = nk==='morning' ? 22*60 : nk==='night' ? 24*60 : 23*60;
+    fe = Math.min(sleep - 30, 23*60);
+  }
+  return {kind:k, pk, nk, fs, fe};
+}
+
+function runDur(km) { return Math.ceil(km * 5.5 / 5) * 5 + 10; }
+
+function slotsFor(it, d, ctx) {
+  const dow = d.date.getDay();
+  if (it.kind === 'club') {
+    const ok = ctx.kind === 'off' && (dow === 2 || dow === 4) && CLUB_START >= ctx.fs && CLUB_END <= ctx.fe;
+    return ok ? [{s:CLUB_START, e:CLUB_END}] : [];
+  }
+  if (it.kind === 'swim') {
+    const pref = PREF.swim[ctx.kind];
+    return POOL.filter(p => p.dow === dow && !poolOff.has(p.id) && p.s >= ctx.fs && p.e <= ctx.fe)
+      .sort((a,b) => Math.abs(a.s-pref) - Math.abs(b.s-pref))
+      .map(p => ({s:p.s, e:p.e, g:p.g, label:p.label}));
+  }
+  const pref = (it.kind === 'gym' && ctx.kind === 'off' && ctx.pk === 'night') ? 16*60 : PREF[it.kind][ctx.kind];
+  const out = [];
+  for (let s = Math.ceil(ctx.fs/30)*30; s + it.dur <= ctx.fe; s += 30) out.push({s, e:s+it.dur});
+  return out.sort((a,b) => Math.abs(a.s-pref) - Math.abs(b.s-pref) || a.s - b.s);
+}
+
+/* try to fit all items into one day with >= 30 min between them; returns slots (same order as items) or null */
+function tryPlace(d, items) {
+  const ctx = dayCtx(d);
+  const lists = items.map(it => slotsFor(it, d, ctx));
+  if (lists.some(l => !l.length)) return null;
+  const tb = therapyBlock(d);                       // therapy is a fixed block everything else must stay clear of
+  const chosen = tb ? [{s:tb.s, e:tb.e}] : [];
+  function rec(i) {
+    if (i === items.length) return true;
+    for (const sl of lists[i]) {
+      if (chosen.every(c => sl.s >= c.e + 30 || sl.e <= c.s - 30)) {
+        chosen.push(sl);
+        if (rec(i+1)) return true;
+        chosen.pop();
+      }
+    }
+    return false;
+  }
+  return rec(0) ? chosen.slice(tb ? 1 : 0).map(c => Object.assign({}, c)) : null;
+}
+
+function combos(arr, k) {
+  const res = [];
+  (function rec(st, cur) {
+    if (cur.length === k) { res.push(cur.slice()); return; }
+    for (let i = st; i < arr.length; i++) { cur.push(arr[i]); rec(i+1, cur); cur.pop(); }
+  })(0, []);
+  return res;
+}
+
+/* ---------- sports planner ---------- */
+function planSports(days, o) {
+  days.forEach(d => { d.items = []; d.sports = []; });
+  const sets = {swim:new Set(), gym:new Set(), run:new Set()};   // run set also holds club days
+  const penalty = {swim:8, gym:18, run:18, club:18};
+  const recEnd = o.runFrom ? addDays(o.runFrom, 7) : null;
+  const inRecovery = d => !!recEnd && d.date < recEnd;
+  const easyKm = d => inRecovery(d) ? Math.min(o.easy, 5) : o.easy;
+  const runAllowed = d => !o.runFrom || d.date >= o.runFrom;
+
+  const weeks = [];
+  let cur = [];
+  days.forEach((d, i) => { if (i > 0 && d.date.getDay() === 1) { weeks.push(cur); cur = []; } cur.push(i); });
+  weeks.push(cur);
+
+  function hasRun3(set) { for (const i of set) if (set.has(i+1) && set.has(i+2)) return true; return false; }
+
+  function choose(cands, k, kind, w) {
+    if (!cands.length || k <= 0) return [];
+    k = Math.min(k, cands.length);
+    const lo = w[0] - 3, hi = w[w.length-1] + 3;
+    const fixed = [...sets[kind]].filter(x => x >= lo && x <= hi);
+    let best = null, bestScore = -Infinity;
+    combos(cands, k).forEach(S => {
+      if (kind === 'run' && hasRun3(new Set([...sets.run, ...S]))) return;
+      const pts = new Set([...S, ...fixed]);
+      let minGap = 7, sumGap = 0;
+      S.forEach(s => {
+        let nd = 7;
+        pts.forEach(p => { if (p !== s) nd = Math.min(nd, Math.abs(p - s)); });
+        minGap = Math.min(minGap, nd);
+        sumGap += Math.min(nd, 4);
+      });
+      let pen = 0;
+      S.forEach(s => {
+        const its = days[s].items;
+        its.forEach(it => { pen += penalty[it.kind]; });
+        if (its.length >= 2) pen += 60;                                   // never stack a third session on one day
+        const ks = its.map(x => x.kind);
+        const isRun = kind === 'run', isGym = kind === 'gym';
+        if ((isRun && ks.includes('gym')) || (isGym && (ks.includes('run') || ks.includes('club')))) pen += 20;  // gym + run on the same day
+      });
+      const score = Math.min(minGap, 3) * 100 + sumGap * 5 - pen;
+      if (score > bestScore) { bestScore = score; best = S; }
+    });
+    return best || [];
   }
 
-  const counts = {noon:0, morning:0, night:0, off:0};
-  days.forEach(d => {
-    if (!d.type) return;
-    const k = d.type.off ? 'off' : d.type.t;
-    counts[k] = (counts[k]||0) + 1;
+  function fits(i, item) { return !!tryPlace(days[i], days[i].items.concat([item])); }
+
+  weeks.forEach(w => {
+    const tgt = n => Math.round(n * w.length / 7);
+
+    // 1) swim — the most constrained, so it goes first
+    {
+      const item = {kind:'swim'};
+      const cands = w.filter(i => !sets.swim.has(i) && fits(i, item));
+      choose(cands, tgt(o.swim), 'swim', w).forEach(i => { days[i].items.push({kind:'swim'}); sets.swim.add(i); });
+    }
+
+    // 2) running club on Tue/Thu off days
+    let clubs = 0;
+    if (o.useClub) {
+      w.forEach(i => {
+        const d = days[i];
+        if (!runAllowed(d) || sets.run.has(i)) return;
+        const item = {kind:'club', dur:CLUB_END-CLUB_START, km:CLUB_KM};
+        if (fits(i, item)) { d.items.push(item); sets.run.add(i); clubs++; }
+      });
+    }
+
+    // 3) other runs
+    {
+      const need = Math.max(0, tgt(o.run) - clubs);
+      const cands = w.filter(i => runAllowed(days[i]) && !sets.run.has(i) &&
+        fits(i, {kind:'run', km:easyKm(days[i]), dur:runDur(easyKm(days[i]))}));
+      const picked = choose(cands, need, 'run', w);
+      picked.forEach(i => {
+        const km = easyKm(days[i]);
+        days[i].items.push({kind:'run', km, dur:runDur(km), long:false});
+        sets.run.add(i);
+      });
+
+      // long run: one per week when there are 3+ runs, on a roomy day, never during the recovery week
+      const runDays = w.filter(i => days[i].items.some(it => it.kind === 'run'));
+      if (o.long > 0 && runDays.length + clubs >= 3) {
+        const roomy = runDays.filter(i => !inRecovery(days[i]) && ['off','noon'].includes(kindOf(days[i].type)))
+          .sort((a,b) => { const ca = dayCtx(days[a]), cb = dayCtx(days[b]); return (cb.fe-cb.fs) - (ca.fe-ca.fs) || a - b; });
+        if (roomy.length) {
+          const it = days[roomy[0]].items.find(x => x.kind === 'run');
+          const old = {km:it.km, dur:it.dur};
+          it.km = o.long; it.dur = runDur(o.long); it.long = true;
+          if (!tryPlace(days[roomy[0]], days[roomy[0]].items)) { it.km = old.km; it.dur = old.dur; it.long = false; }
+        }
+      }
+    }
+
+    // 4) gym
+    {
+      const item = {kind:'gym', dur:90};
+      const cands = w.filter(i => !sets.gym.has(i) && fits(i, item));
+      choose(cands, tgt(o.gym), 'gym', w).forEach(i => { days[i].items.push({kind:'gym', dur:90}); sets.gym.add(i); });
+    }
   });
 
-  document.getElementById('statsRow').innerHTML = [
-    ['noon','Noon','#7F77DD'],['morning','Morning','#378ADD'],
-    ['night','Night','#E24B4A'],['off','Days off','#1D9E75']
-  ].map(([k,l,c]) => `<div class="stat">
-    <div class="stat-n" style="color:${c}">${counts[k]||0}</div>
-    <div class="stat-l">${l}</div>
-  </div>`).join('');
-
-  document.getElementById('previewLabel').textContent = `${days.length} days`;
-
-  document.getElementById('preview').innerHTML = days.slice(0,60).map(d => {
-    if (!d.type) return '';
-    const t = d.type.t;
-    const col = COLORS[d.type.off ? 'off' : t] || '#888';
-    const lbl = LABELS[d.type.off ? 'off' : t];
-    const dow = d.date.getDay();
-    const runNote = (d.type.off && (dow===2||dow===4)) ? '<span class="day-note">running club 19:30</span>' : '';
-    const ovBadge = d.type.override ? '<span class="override-badge">override</span>' : '';
-    return `<div class="preview-day">
-      <div class="dot" style="background:${col}"></div>
-      <span class="day-date">${fmtDate(d.date)}</span>
-      <span class="day-label">${lbl}${ovBadge}</span>
-      ${runNote}
-    </div>`;
-  }).join('') + (days.length > 60 ? `<div style="font-size:0.78rem;color:#444;padding:8px 0">+ ${days.length-60} more days not shown in preview</div>` : '');
-
-  window._calDays = days;
+  // final placement + labels
+  let gymN = 0;
+  days.forEach(d => {
+    if (!d.items.length) return;
+    const slots = tryPlace(d, d.items);
+    if (!slots) return;
+    d.items.forEach((it, j) => {
+      const sl = slots[j];
+      const base = {kind:it.kind, s:sl.s, e:sl.e};
+      if (it.kind === 'swim') {
+        d.sports.push(Object.assign(base, {
+          title:'Swim', short:`${fmtMin(sl.s)}`,
+          note:`Pool: ${sl.g==='K' ? 'mixed' : "men's"} session ${sl.label}`
+        }));
+      } else if (it.kind === 'club') {
+        d.sports.push(Object.assign(base, {
+          title:'Running club', km:CLUB_KM, short:`${fmtMin(sl.s)}`,
+          note:'Adidas Runners group run (~7 km)' + (inRecovery(d) ? ' — keep it easy' : '')
+        }));
+      } else if (it.kind === 'run') {
+        d.sports.push(Object.assign(base, {
+          title:`Run ${it.km} km`, km:it.km, short:`${it.km}k ${fmtMin(sl.s)}`,
+          note: it.long ? `Long run ${it.km} km, easy pace` : (inRecovery(d) ? `Recovery run ${it.km} km, very easy` : `Easy run ${it.km} km (~5:15/km)`)
+        }));
+      } else {
+        const lbl = o.split ? (gymN % 2 === 0 ? 'Upper' : 'Lower') : '';
+        gymN++;
+        d.sports.push(Object.assign(base, {
+          title: lbl ? `Gym – ${lbl}` : 'Gym', short: `${lbl ? lbl.slice(0,2) + ' ' : ''}${fmtMin(sl.s)}`,
+          note: `Gym session ${fmtMin(sl.s)}–${fmtMin(sl.e)}`
+        }));
+      }
+    });
+    d.sports.sort((a,b) => a.s - b.s);
+  });
+  return days;
 }
 
+/* ---------- events (shared by the calendar view and the .ics) ---------- */
+function dayEvents(d, inc) {
+  const out = [];
+  const t = d.type.t, k = kindOf(d.type), pk = kindOf(d.prevType);
+
+  if (inc.shift && k !== 'off') {
+    const ti = TIMES[t];
+    const leave = t==='noon' ? '12:30' : t==='morning' ? '06:30' : '21:30';
+    out.push({kind:'shift', sub:t, title:LABELS[t], s:ti.s[0]*60+ti.s[1], e:ti.e[0]*60+ti.e[1], so:0, eo:ti.next?1:0, note:`Leave at ${leave}`});
+  }
+
+  if (inc.sleep) {
+    if (k === 'morning') {
+      out.push({kind:'sleep', title:'Sleep', s:22*60, e:6*60, so:-1, eo:0, note:'Wake 06:00 for morning shift'});
+    } else if (k === 'noon') {
+      out.push({kind:'sleep', title:'Sleep', s:23*60, e:7*60, so:-1, eo:0, note:'Wake 07:00 for noon shift'});
+    } else if (k === 'night') {
+      out.push({kind:'sleep', title:'Sleep (post-night)', s:8*60, e:13*60, so:0, eo:0, note:'Sleep after night shift'});
+      out.push({kind:'sleep', title:'Nap', s:18*60, e:21*60, so:0, eo:0, note:'Pre-shift nap — leave 21:30'});
+    } else if (pk === 'night') {
+      // first day off after a night block: you come home at ~08:00, so sleep then (not the evening before)
+      out.push({kind:'sleep', title:'Sleep (post-night)', s:8*60, e:13*60, so:0, eo:0, note:'Sleep after night shift'});
+    } else {
+      out.push({kind:'sleep', title:'Sleep', s:23*60, e:7*60+30, so:-1, eo:0, note:'Off day'});
+    }
+  }
+
+  const tb = therapyBlock(d, true);
+  if (inc.therapy && tb) {
+    out.push({kind:'therapy', title:'Terapi', s:tb.s, e:tb.e, so:0, eo:0, short:`Terapi ${fmtMin(tb.s)}`, note:'Therapy session (50 min)'});
+  }
+
+  d.sports.forEach(sp => {
+    const on =sp.kind === 'swim' ? inc.swim : sp.kind === 'gym' ? inc.gym : inc.run;
+    if (on) out.push(Object.assign({so:0, eo:0}, sp));
+  });
+  return out;
+}
+
+/* ---------- rendering ---------- */
+function generate() {
+  const cfg = readConfig();
+  if (!cfg) return;
+  therapyOn = cfg.inc.therapy;
+  poolOff = new Set([...document.querySelectorAll('#poolChips input')].filter(c => !c.checked).map(c => c.dataset.id));
+  const days = buildDays(cfg);
+  planSports(days, cfg.plan);
+  window._calDays = days;
+  window._cfg = cfg;
+  renderStats(days);
+  renderList(days);
+  renderCalendar();
+}
+
+function renderStats(days) {
+  const counts = {noon:0, morning:0, night:0, off:0};
+  const sp = {swim:0, run:0, gym:0, km:0};
+  days.forEach(d => {
+    counts[kindOf(d.type)]++;
+    d.sports.forEach(s => {
+      if (s.kind === 'swim') sp.swim++;
+      else if (s.kind === 'gym') sp.gym++;
+      else { sp.run++; sp.km += s.km || 0; }
+    });
+  });
+  document.getElementById('statsRow').innerHTML = [
+    ['noon','Noon','#7F77DD'],['morning','Morning','#378ADD'],['night','Night','#E24B4A'],['off','Days off','#1D9E75']
+  ].map(([k,l,c]) => `<div class="stat"><div class="stat-n" style="color:${c}">${counts[k]}</div><div class="stat-l">${l}</div></div>`).join('');
+  document.getElementById('sportsRow').innerHTML = [
+    [sp.swim,'Swims','#2BB6C9'],[sp.run,'Runs','#F0883E'],[sp.km,'Run km','#F0883E'],[sp.gym,'Gym sessions','#D9A93A']
+  ].map(([n,l,c]) => `<div class="stat"><div class="stat-n" style="color:${c}">${n}</div><div class="stat-l">${l}</div></div>`).join('');
+}
+
+function sportText(s) {
+  const ic = SPORT[s.kind].icon;
+  if (s.kind === 'run') return `${ic} ${s.km} km ${fmtMin(s.s)}`;
+  if (s.kind === 'gym') return `${ic} ${s.title.replace('Gym – ','')} ${fmtMin(s.s)}`;
+  return `${ic} ${s.title === 'Running club' ? 'Club' : 'Swim'} ${fmtMin(s.s)}`;
+}
+
+function renderList(days) {
+  document.getElementById('preview').innerHTML = days.map(d => {
+    const k = kindOf(d.type);
+    const ov = d.type.override ? '<span class="override-badge">override</span>' : '';
+    const tb = therapyBlock(d);
+    const notes = (tb ? [`${SPORT.therapy.icon} Terapi ${fmtMin(tb.s)}`] : []).concat(d.sports.map(sportText)).join(' &nbsp;·&nbsp; ');
+    return `<div class="preview-day">
+      <div class="dot" style="background:${COLORS[k]}"></div>
+      <span class="day-date">${fmtDate(d.date)}</span>
+      <span class="day-label">${LABELS[k]}${ov}</span>
+      <span class="day-note">${notes}</span>
+    </div>`;
+  }).join('');
+}
+
+function setView(v) {
+  document.getElementById('viewCal').style.display = v === 'cal' ? '' : 'none';
+  document.getElementById('viewList').style.display = v === 'list' ? '' : 'none';
+  document.getElementById('tabCal').classList.toggle('active', v === 'cal');
+  document.getElementById('tabList').classList.toggle('active', v === 'list');
+}
+
+function calNav(delta) {
+  const cm = window._calMonth;
+  if (!cm) return;
+  window._calMonth = new Date(cm.getFullYear(), cm.getMonth() + delta, 1);
+  renderCalendar();
+}
+
+function renderCalendar() {
+  const days = window._calDays || [];
+  const grid = document.getElementById('calGrid');
+  if (!days.length) { grid.innerHTML = ''; return; }
+
+  const first = days[0].date, last = days[days.length-1].date;
+  const minM = new Date(first.getFullYear(), first.getMonth(), 1);
+  const maxM = new Date(last.getFullYear(), last.getMonth(), 1);
+  let cm = window._calMonth;
+  if (!cm || cm < minM || cm > maxM) cm = minM;
+  window._calMonth = cm;
+
+  document.getElementById('calTitle').textContent = cm.toLocaleDateString('en-GB', {month:'long', year:'numeric'});
+  document.getElementById('calPrev').disabled = cm <= minM;
+  document.getElementById('calNext').disabled = cm >= maxM;
+
+  const byKey = {};
+  days.forEach(d => { byKey[d.key] = d; });
+  const inc = Object.assign({}, window._cfg.inc, {shift:false, sleep:chk('showSleep')});
+  const todayKey = dkey(new Date());
+
+  const offset = (cm.getDay() + 6) % 7;                         // Monday-first
+  const dim = new Date(cm.getFullYear(), cm.getMonth()+1, 0).getDate();
+  const cells = Math.ceil((offset + dim) / 7) * 7;
+
+  let html = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(n => `<div class="cal-dow">${n}</div>`).join('');
+  for (let c = 0; c < cells; c++) {
+    const date = new Date(cm.getFullYear(), cm.getMonth(), c - offset + 1);
+    const inMonth = date.getMonth() === cm.getMonth();
+    const d = byKey[dkey(date)];
+    if (!inMonth || !d) {
+      html += `<div class="cal-cell out"><div class="cal-num">${date.getDate()}</div></div>`;
+      continue;
+    }
+    const k = kindOf(d.type);
+    let inner = `<div class="cal-num">${date.getDate()}</div>`;
+    inner += `<div class="pill" style="background:${COLORS[k]}" title="${esc(LABELS[k])}">${esc(SHORT[k])}${d.type.override ? ' *' : ''}</div>`;
+    dayEvents(d, inc).sort((a,b) => (a.so*1440+a.s) - (b.so*1440+b.s)).forEach(e => {
+      const tip = esc(`${e.title} ${fmtMin(e.s)}–${fmtMin(e.e)}${e.note ? ' · ' + e.note : ''}`);
+      if (e.kind === 'sleep') {
+        inner += `<div class="ev sleep" title="${tip}">${SPORT.sleep.icon} ${fmtMin(e.s)}–${fmtMin(e.e)}</div>`;
+      } else {
+        const txt = e.kind === 'run' ? `${SPORT.run.icon} ${e.short}`
+                  : e.kind === 'gym' ? `${SPORT.gym.icon} ${e.short}`
+                  : `${SPORT[e.kind].icon} ${e.short}`;
+        inner += `<div class="ev" style="border-left-color:${SPORT[e.kind].color}" title="${tip}">${esc(txt)}</div>`;
+      }
+    });
+    html += `<div class="cal-cell${dkey(date) === todayKey ? ' today' : ''}">${inner}</div>`;
+  }
+  grid.innerHTML = html;
+}
+
+/* ---------- .ics ---------- */
 function icsDateStr(d, h, m) {
   return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(h)}${pad(m)}00`;
 }
-
+function icsText(s) { return String(s).replace(/\\/g,'\\\\').replace(/[,;]/g, m => '\\' + m).replace(/\n/g,'\\n'); }
 function randomUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
     const r = Math.random()*16|0;
     return (c==='x' ? r : (r&0x3|0x8)).toString(16);
   });
 }
-
 function makeEvent(uid, dtStamp, dtStart, dtEnd, summary, description) {
-  return `BEGIN:VEVENT\r\nUID:${uid}\r\nDTSTAMP:${dtStamp}\r\nDTSTART:${dtStart}\r\nDTEND:${dtEnd}\r\nSUMMARY:${summary}\r\nDESCRIPTION:${description}\r\nEND:VEVENT`;
+  return `BEGIN:VEVENT\r\nUID:${uid}\r\nDTSTAMP:${dtStamp}\r\nDTSTART:${dtStart}\r\nDTEND:${dtEnd}\r\nSUMMARY:${icsText(summary)}\r\nDESCRIPTION:${icsText(description)}\r\nEND:VEVENT`;
 }
 
-function downloadICS() {
+/* mode: 'shift' | 'sleep' | 'sports' | 'therapy' = just that part, 'all' = everything ticked above */
+function buildICS(mode) {
+  mode = mode || 'all';
   const days = window._calDays;
-  if (!days || !days.length) {
+  const inc = Object.assign({}, window._cfg.inc);
+  if (mode === 'shift') inc.shift = true;
+  if (mode === 'sleep') inc.sleep = true;
+  if (mode === 'therapy') inc.therapy = true;
+  if (mode === 'sports') { inc.gym = true; inc.swim = true; inc.run = true; }
+  const group = e => (e.kind === 'shift' || e.kind === 'sleep' || e.kind === 'therapy') ? e.kind : 'sports';
+  const now = new Date();
+  const dtStamp = `${now.getUTCFullYear()}${pad(now.getUTCMonth()+1)}${pad(now.getUTCDate())}T${pad(now.getUTCHours())}${pad(now.getUTCMinutes())}${pad(now.getUTCSeconds())}Z`;
+  const events = [];
+  days.forEach(d => {
+    dayEvents(d, inc).forEach(e => {
+      if (mode !== 'all' && group(e) !== mode) return;
+      const sd = addDays(d.date, e.so || 0), ed = addDays(d.date, e.eo || 0);
+      events.push(makeEvent(randomUID(), dtStamp,
+        icsDateStr(sd, Math.floor(e.s/60), e.s%60), icsDateStr(ed, Math.floor(e.e/60), e.e%60),
+        e.title, e.note || ''));
+    });
+  });
+  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Shift Planner//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH', ...events, 'END:VCALENDAR'].join('\r\n');
+}
+
+function downloadICS(mode) {
+  if (!window._calDays || !window._calDays.length) {
     document.getElementById('dlHint').textContent = 'Please set a start date first.';
     return;
   }
-
-  const incShift = document.getElementById('incShift').checked;
-  const incSleep = document.getElementById('incSleep').checked;
-  const incGym   = document.getElementById('incGym').checked;
-  const incRun   = document.getElementById('incRun').checked;
-
-  const now = new Date();
-  const dtStamp = `${now.getUTCFullYear()}${pad(now.getUTCMonth()+1)}${pad(now.getUTCDate())}T${pad(now.getUTCHours())}${pad(now.getUTCMinutes())}${pad(now.getUTCSeconds())}Z`;
-
-  const events = [];
-
-  days.forEach(({date, type}) => {
-    if (!type) return;
-    const t   = type.t;
-    const off = type.off || t === 'off';
-    const dow = date.getDay();
-
-    if (incShift && !off && TIMES[t]) {
-      const ti = TIMES[t];
-      const endD = ti.next ? addDays(date,1) : date;
-      const leave = t==='noon' ? '12:30' : t==='morning' ? '06:30' : '21:30';
-      events.push(makeEvent(randomUID(), dtStamp,
-        icsDateStr(date, ...ti.s), icsDateStr(endD, ...ti.e),
-        LABELS[t], `Leave at ${leave}`));
-    }
-
-    if (incSleep) {
-      const prev = addDays(date, -1);
-      if (t === 'morning') {
-        events.push(makeEvent(randomUID(), dtStamp,
-          icsDateStr(prev,22,0), icsDateStr(date,6,0),
-          'Sleep', 'Wake 06:00 for morning shift'));
-      } else if (t === 'noon') {
-        events.push(makeEvent(randomUID(), dtStamp,
-          icsDateStr(prev,23,0), icsDateStr(date,7,0),
-          'Sleep', 'Wake 07:00 for noon shift'));
-      } else if (t === 'night') {
-        events.push(makeEvent(randomUID(), dtStamp,
-          icsDateStr(date,8,0), icsDateStr(date,13,0),
-          'Sleep (post-night)', 'Sleep after night shift'));
-        events.push(makeEvent(randomUID(), dtStamp,
-          icsDateStr(date,18,0), icsDateStr(date,21,0),
-          'Nap', 'Pre-shift nap — leave 21:30'));
-      } else if (off) {
-        events.push(makeEvent(randomUID(), dtStamp,
-          icsDateStr(prev,23,0), icsDateStr(date,7,30),
-          'Sleep', 'Off day'));
-      }
-    }
-
-    if (incGym && off) {
-      events.push(makeEvent(randomUID(), dtStamp,
-        icsDateStr(date,9,0), icsDateStr(date,10,30),
-        'Gym', 'Off day — morning gym'));
-    }
-    if (incGym && t === 'night') {
-      events.push(makeEvent(randomUID(), dtStamp,
-        icsDateStr(date,14,0), icsDateStr(date,15,30),
-        'Gym', 'Night shift day — gym before nap'));
-    }
-
-    if (incRun && off && (dow===2||dow===4)) {
-      events.push(makeEvent(randomUID(), dtStamp,
-        icsDateStr(date,19,30), icsDateStr(date,21,0),
-        'Running club', 'Tuesday/Thursday running club'));
-    }
-  });
-
-  const ics = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//Shift Planner//EN',
-    'CALSCALE:GREGORIAN',
-    'METHOD:PUBLISH',
-    ...events,
-    'END:VCALENDAR'
-  ].join('\r\n');
-
+  const ics = buildICS(mode);
   const a = document.createElement('a');
   a.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
-  a.download = 'shift_schedule.ics';
+  a.download = ({shift:'shift_schedule.ics', sleep:'sleep_schedule.ics', sports:'sports_plan.ics', therapy:'therapy.ics'})[mode] || 'shift_and_sports.ics';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   document.getElementById('dlHint').textContent = 'Downloaded! On iPhone: tap the file in Files app or Mail to add all events to Calendar.';
 }
 
-['startDate','startShift','startDay','months','incShift','incSleep','incGym','incRun'].forEach(id => {
+/* ---------- init ---------- */
+['startDate','startShift','startDay','months','incShift','incSleep','incGym','incSwim','incRun','incTherapy',
+ 'gymPerWeek','swimPerWeek','runPerWeek','easyKm','longKm','runFrom','useClub','gymSplit'].forEach(id => {
   const el = document.getElementById(id);
-  if (el) el.addEventListener('change', generate);
+  if (el) { el.addEventListener('change', generate); el.addEventListener('input', generate); }
 });
+document.getElementById('showSleep').addEventListener('change', renderCalendar);
 
-document.getElementById('startDate').value = new Date().toISOString().slice(0,10);
+document.getElementById('startDate').value = '2026-11-02';   // start of the current shift calendar
+buildPoolChips();
 updateDayOptions();
 </script>
 </body>
